@@ -3,7 +3,7 @@ package test
 import (
     "testing"
 
-    "testgo/src"
+    "github.com/jiz17043/testgo/src"
 )
 
 func TestMightBeUnstable(t *testing.T) {
