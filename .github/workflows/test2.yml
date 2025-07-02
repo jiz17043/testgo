@@ -25,7 +25,7 @@ jobs:
         run: |
           mkdir -p test-results
           gotestsum --junitfile test-results/results-1.xml -- \
-            go test ./... -v
+            go test ./test/... -v
 
       - name: Check first run result
         if: steps.first_run.outcome == 'success'
@@ -37,7 +37,7 @@ jobs:
         continue-on-error: true
         run: |
           gotestsum --junitfile test-results/results-2.xml -- \
-            go test ./... -v
+            go test ./test/... -v
 
       - name: Fail if second run fails
         if: steps.first_run.outcome != 'success' && steps.second_run.outcome == 'failure'
