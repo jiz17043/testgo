@@ -37,7 +37,7 @@ jobs:
         if: steps.first_run.outcome != 'success'
         continue-on-error: true
         run: |
-          go test -v ./test/... 2>&1 | go-junit-report > test-results/results-1.xml
+          go test -v ./test/... 2>&1 | go-junit-report > test-results/results-2.xml
 
       - name: Fail if second run fails
         if: steps.first_run.outcome != 'success' && steps.second_run.outcome == 'failure'
@@ -65,7 +65,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
           pip install pytest lxml
 
       - name: Detect flaky tests
