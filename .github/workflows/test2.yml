@@ -25,7 +25,8 @@ jobs:
         run: |
           mkdir -p test-results
           # Run tests in ./test directory with module awareness
-          go test -v ./test/... 2>&1 | go-junit-report > test-results/results-1.xml 
+          go test -v ./test/... | go-junit-report > test-results/results-1.xml
+
 
       - name: Check first run result
         if: steps.first_run.outcome == 'success'
@@ -36,8 +37,8 @@ jobs:
         if: steps.first_run.outcome != 'success'
         continue-on-error: true
         run: |
-          go test -v ./test/... 2>&1 | go-junit-report > test-results/results-2.xml
-          
+          go test -v ./test/... | go-junit-report > test-results/results-2.xml
+
       - name: Fail if second run fails
         if: steps.first_run.outcome != 'success' && steps.second_run.outcome == 'failure'
         run: |
