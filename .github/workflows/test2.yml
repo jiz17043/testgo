@@ -57,6 +57,16 @@ jobs:
         with:
           repository: jiz17043/detect_flaky
           path: detect_flaky_repo
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest lxml
 
       - name: Detect flaky tests
         if: steps.second_run.outcome == 'success'
