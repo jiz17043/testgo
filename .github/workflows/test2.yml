@@ -15,7 +15,10 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: '1.21'
-
+      
+      - name: Install go-junit-report
+        run: go install github.com/jstemmer/go-junit-report@latest
+        
       - name: First test run
         id: first_run
         continue-on-error: true
