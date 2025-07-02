@@ -60,11 +60,13 @@ jobs:
           path: detect_flaky_repo
       
       - name: Set up Python
+        if: steps.second_run.outcome == 'success'
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Install dependencies
+        if: steps.second_run.outcome == 'success'
         run: |
           pip install pytest lxml
 
