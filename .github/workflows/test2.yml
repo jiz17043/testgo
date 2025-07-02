@@ -16,17 +16,16 @@ jobs:
         with:
           go-version: '1.21'
 
-      - name: Install go-junit-report
-        run: go install github.com/jstemmer/go-junit-report@latest
+      - name: Install gotestsum
+        run: go install gotest.tools/gotestsum@latest
 
       - name: First test run
         id: first_run
         continue-on-error: true
         run: |
           mkdir -p test-results
-          # Run tests in ./test directory with module awareness
-          go test -v ./test/... | go-junit-report > test-results/results-1.xml
-
+          gotestsum --junitfile test-results/results-1.xml -- \
+            go test ./... -v
 
       - name: Check first run result
         if: steps.first_run.outcome == 'success'
@@ -37,7 +36,8 @@ jobs:
         if: steps.first_run.outcome != 'success'
         continue-on-error: true
         run: |
-          go test -v ./test/... | go-junit-report > test-results/results-2.xml
+          gotestsum --junitfile test-results/results-2.xml -- \
+            go test ./... -v
 
       - name: Fail if second run fails
         if: steps.first_run.outcome != 'success' && steps.second_run.outcome == 'failure'
