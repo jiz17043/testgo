@@ -37,6 +37,7 @@ jobs:
         if: steps.first_run.outcome != 'success'
         continue-on-error: true
         run: |
+          set -o pipefail
           go test -v ./test/... 2>&1 | go-junit-report > test-results/results-2.xml
 
       - name: Fail if second run fails
