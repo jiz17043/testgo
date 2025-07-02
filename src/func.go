@@ -7,5 +7,5 @@ import (
 
 func MightBeUnstable() bool {
     rand.Seed(time.Now().UnixNano())
-    return rand.Float64() > 0.5
+    return rand.Float64() > 0.3
 }
